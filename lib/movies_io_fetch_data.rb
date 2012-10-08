@@ -40,7 +40,7 @@ module FilmesFetch
              d[:seeders] = download_line.css('.se').first.content
              d[:seeders] = download_line.css('.le').first.content
              d[:legendas] = download_line.css('.sub a').first[:href]
-           end
+          end
         end
       end
     end
