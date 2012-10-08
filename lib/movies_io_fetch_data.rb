@@ -7,27 +7,27 @@ module FilmesFetch
       @url = url
       @page = Nokogiri.HTML open(@url)
 
-      scrab_cebecalho
-      scrab_informacao
-      scrab_downloads
+      scrap_cebecalho
+      scrap_informacao
+      scrap_downloads
       save_to_db
     end
 
   private
-    def scrab_cebecalho
+    def scrap_cebecalho
       cabecalho = @page.css('.movie_headline')
       @titulo = cabecalho.css('.movie_title').first.content
       @ano = cabecalho.css('.movie_year a').first.content
       @duracao = cabecalho.css('.movie_runtime').first.content
     end
 
-    def scrab_informacao
+    def scrap_informacao
       info = @page.css('.movie_info')
       @descricao = info.css('.trailer_complement .movie_plot').first['data-full-plot']
       @rating = info.css('.movie_rating .movie_rating_value').first.content
     end
 
-    def scrab_downloads
+    def scrap_downloads
       downloads = @page.css('.sources table')
       @downloads = downloads.first.children.map do |download_line|
         download_data = {}
@@ -51,7 +51,7 @@ module FilmesFetch
     end
 
     def imprime
-      puts '------------------------------------------------------------'
+      puts '----------------------------------------------------------'
       puts @titulo
       puts @ano
       puts @duracao
